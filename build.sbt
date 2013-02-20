@@ -41,9 +41,9 @@ pomExtra := (
     </license>
   </licenses>
   <scm>
-    <url>https://github.com/folone/scalaz-geo</url>
-    <connection>scm:git:git://github.com/folone/scalaz-geo.git</connection>
-    <developerConnection>scm:git:git@github.com:folone/scalaz-geo.git</developerConnection>
+    <url>https://github.com/scalaz/scalaz-geo</url>
+    <connection>scm:git:git://github.com/scalaz/scalaz-geo.git</connection>
+    <developerConnection>scm:git:git@github.com:scalaz/scalaz-geo.git</developerConnection>
   </scm>
   <developers>
     <developer>
