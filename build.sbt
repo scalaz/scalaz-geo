@@ -13,7 +13,13 @@ scalacOptions <++= (scalaVersion) map { sv =>
     Seq("-Ydependent-method-types", "-deprecation")
 }
 
-libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.0.0-M8"
+libraryDependencies ++= Seq(
+  "org.scalaz" %% "scalaz-core" % "7.0.0-M8",
+  "org.specs2" %% "specs2" % "1.12.3" % "test",
+  "org.scalacheck" %% "scalacheck" % "1.10.0" % "test",
+  "org.typelevel" %% "scalaz-specs2" % "0.1" % "test",
+  "org.scalaz" %% "scalaz-scalacheck-binding" % "7.0.0-M8" % "test"
+)
 
 resolvers += Resolver.sonatypeRepo("releases")
 
