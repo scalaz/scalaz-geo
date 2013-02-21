@@ -2,22 +2,31 @@ import sbtrelease.ReleasePlugin._
 
 organization := "org.typelevel"
 
+name := "scalaz-geo"
+
+version := "0.1-SNAPSHOT"
+
 scalaVersion := "2.10.0"
 
 crossScalaVersions := Seq("2.9.2", "2.10.0")
 
 scalacOptions <++= (scalaVersion) map { sv =>
   if (sv.contains("2.10"))
-    Seq("-feature", "-deprecation", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
+    Seq("-feature", "-deprecation", "-language:implicitConversions")
   else
-    Seq("-Ydependent-method-types", "-deprecation")
+    Seq("-deprecation")
+}
+
+// https://github.com/sbt/sbt/issues/603
+conflictWarning ~= { cw =>
+  cw.copy(filter = (id: ModuleID) => true, group = (id: ModuleID) => id.organization + ":" + id.name, level = Level.Error, failOnConflict = true)
 }
 
 libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % "7.0.0-M8",
   "org.specs2" %% "specs2" % "1.12.3" % "test",
   "org.scalacheck" %% "scalacheck" % "1.10.0" % "test",
-  "org.typelevel" %% "scalaz-specs2" % "0.1" % "test",
+  "org.typelevel" %% "scalaz-specs2" % "0.1.1" % "test",
   "org.scalaz" %% "scalaz-scalacheck-binding" % "7.0.0-M8" % "test"
 )
 
