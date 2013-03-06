@@ -1,6 +1,6 @@
 import sbtrelease.ReleasePlugin._
 
-organization := "org.typelevel"
+organization := "org.scalaz.geo"
 
 name := "scalaz-geo"
 
