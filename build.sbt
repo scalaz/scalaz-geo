@@ -6,15 +6,19 @@ name := "scalaz-geo"
 
 version := "0.1-SNAPSHOT"
 
-scalaVersion := "2.10.0"
+scalaVersion := "2.10.1"
 
-crossScalaVersions := Seq("2.9.2", "2.10.0")
+crossScalaVersions := Seq("2.9.2", "2.9.3", "2.10.1")
 
 scalacOptions <++= (scalaVersion) map { sv =>
-  if (sv.contains("2.10"))
-    Seq("-feature", "-deprecation", "-language:implicitConversions")
-  else
-    Seq("-deprecation")
+  val versionDepOpts =
+    if (sv startsWith "2.9")
+      Seq("-Ydependent-method-types", "-deprecation")
+    else
+      // does not contain -deprecation (because of ClassManifest)
+      // contains -language:postfixOps (because 1+ as a parameter to a higher-order function is treated as a postfix op)
+      Seq("-feature", "-language:implicitConversions", "-language:higherKinds", "-language:existentials", "-language:postfixOps")
+  Seq("-unchecked") ++ versionDepOpts
 }
 
 // https://github.com/sbt/sbt/issues/603
@@ -22,13 +26,16 @@ conflictWarning ~= { cw =>
   cw.copy(filter = (id: ModuleID) => true, group = (id: ModuleID) => id.organization + ":" + id.name, level = Level.Error, failOnConflict = true)
 }
 
-libraryDependencies ++= Seq(
-  "org.scalaz" %% "scalaz-core" % "7.0.0-M8",
-  "org.specs2" %% "specs2" % "1.12.3" % "test",
-  "org.scalacheck" %% "scalacheck" % "1.10.0" % "test",
-  "org.typelevel" %% "scalaz-specs2" % "0.1.1" % "test",
-  "org.scalaz" %% "scalaz-scalacheck-binding" % "7.0.0-M8" % "test"
-)
+libraryDependencies <++= (scalaVersion) { sv =>
+  val specsVersion = if(sv startsWith "2.9") "1.12.4.1" else "1.12.3"
+  Seq(
+    "org.scalaz"     %% "scalaz-core"               % "7.0.0",
+    "org.specs2"     %% "specs2"                    % specsVersion % "test",
+    "org.scalacheck" %% "scalacheck"                % "1.10.0"     % "test",
+    "org.typelevel"  %% "scalaz-specs2"             % "0.1.4"      % "test",
+    "org.scalaz"     %% "scalaz-scalacheck-binding" % "7.0.0"      % "test"
+  )
+}
 
 resolvers += Resolver.sonatypeRepo("releases")
 
