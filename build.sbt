@@ -29,11 +29,11 @@ conflictWarning ~= { cw =>
 libraryDependencies <++= (scalaVersion) { sv =>
   val specsVersion = if(sv startsWith "2.9") "1.12.4.1" else "1.12.3"
   Seq(
-    "org.scalaz"     %% "scalaz-core"               % "7.0.0",
+    "org.scalaz"     %% "scalaz-core"               % "7.0.3",
     "org.specs2"     %% "specs2"                    % specsVersion % "test",
     "org.scalacheck" %% "scalacheck"                % "1.10.0"     % "test",
-    "org.typelevel"  %% "scalaz-specs2"             % "0.1.4"      % "test",
-    "org.scalaz"     %% "scalaz-scalacheck-binding" % "7.0.0"      % "test"
+    "org.typelevel"  %% "scalaz-specs2"             % "0.1.5"      % "test",
+    "org.scalaz"     %% "scalaz-scalacheck-binding" % "7.0.3"      % "test"
   )
 }
 
