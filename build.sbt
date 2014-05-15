@@ -6,9 +6,9 @@ name := "scalaz-geo"
 
 version := "0.1-SNAPSHOT"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.10.4"
 
-crossScalaVersions := Seq("2.9.2", "2.9.3", "2.10.2", "2.11.0")
+crossScalaVersions := Seq("2.9.2", "2.9.3", "2.10.4", "2.11.0")
 
 scalacOptions <++= (scalaVersion) map { sv =>
   val versionDepOpts =
@@ -24,8 +24,8 @@ scalacOptions <++= (scalaVersion) map { sv =>
 libraryDependencies <++= (scalaVersion) { sv =>
   val scalazSpecsVersion = if(sv startsWith "2.9") "0.1.5" else "0.2"
   Seq(
-    "org.scalaz"     %% "scalaz-core"               % "7.0.6",
-    "org.typelevel"  %% "scalaz-specs2"             % scalazSpecsVersion % "test"
+    "org.scalaz"     %% "scalaz-core"   % "7.0.6",
+    "org.typelevel"  %% "scalaz-specs2" % scalazSpecsVersion % "test"
   )
 }
 
